@@ -6,8 +6,9 @@ import (
 )
 
 func CreateRoutes(e *echo.Echo, db *storage.Database) {
-	// CREATE HANDLERS
+	// TODO: CREATE HANDLERS
+	// teamHandler := &handlers.TeamHandler{}
 
-	// INPUT ROUTES HERE
+	// TODO: INPUT ROUTES HERE
 
 }

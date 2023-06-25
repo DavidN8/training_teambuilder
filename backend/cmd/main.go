@@ -17,10 +17,10 @@ func main() {
 	}
 
 	// Get DB Configuration
-	db_config := config.LoadConfig()
+	dbConfig := config.LoadConfig()
 
 	// Create postgres connection using the config
-	db, err := storage.ConnectDatabase(db_config)
+	db, err := storage.ConnectDatabase(dbConfig)
 	if err != nil {
 		log.Fatal("Can't connect database:", err)
 	}
