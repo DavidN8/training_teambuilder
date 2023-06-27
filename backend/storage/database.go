@@ -16,13 +16,29 @@ func NewDatabase(db *gorm.DB) *Database {
 }
 
 func (db *Database) Migrate() error {
-	if err := db.DB.AutoMigrate(&models.Pokemon{}); err != nil {
+	if err := db.DB.AutoMigrate(&models.User{}, &models.Team{}, &models.Pokemon{}); err != nil {
 		return err
 	}
-	if err := db.DB.AutoMigrate(&models.User{}); err != nil {
+	return nil
+}
+
+func (db *Database) CreateUser(data *models.User) error {
+	if err := db.DB.Create(data).Error; err != nil {
 		return err
 	}
-	if err := db.DB.AutoMigrate(&models.Team{}); err != nil {
+	return nil
+}
+
+func (db *Database) GetUser(id string, data *models.User) error {
+	if err := db.DB.Find(data, id).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db *Database) DeleteUser(id string) error {
+	// Find value to delete
+	if err := db.DB.Delete(&models.User{}, id).Error; err != nil {
 		return err
 	}
 	return nil
