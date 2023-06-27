@@ -12,7 +12,7 @@ import (
 
 func main() {
 	// Load Environment Variables from .env
-	if err := godotenv.Load("../../.env"); err != nil {
+	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Can't load environment variables:", err)
 	}
 
@@ -32,4 +32,5 @@ func main() {
 	// Create Backend Server and establish routes
 	e := echo.New()
 	routes.CreateRoutes(e, databaseInstance)
+	e.Logger.Fatal(e.Start(":8080"))
 }
