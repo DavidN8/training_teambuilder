@@ -18,7 +18,8 @@ func CreateRoutes(e *echo.Echo, db *storage.Database) {
 func setupUserRoutes(e *echo.Echo, handler *handlers.UserHandler) {
 	e.POST("/user", handler.CreateUser)
 	e.DELETE("/user/:userid", handler.DeleteUser)
-	e.GET("user/:userid", handler.GetUser)
+	e.GET("/user/:userid", handler.GetUser)
+	e.GET("/user", handler.GetAllUsers)
 }
 
 func setupTeamRoutes(e *echo.Echo, handler *handlers.TeamHandler) {

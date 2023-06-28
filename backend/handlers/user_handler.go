@@ -45,6 +45,17 @@ func (uh *UserHandler) GetUser(c echo.Context) error {
 	return nil
 }
 
+func (uh *UserHandler) GetAllUsers(c echo.Context) error {
+	users := &[]models.User{}
+
+	if err := uh.DatabaseInstance.DB.Find(users).Error; err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	c.JSON(http.StatusOK, users)
+	return nil
+}
+
 func (uh *UserHandler) DeleteUser(c echo.Context) error {
 	id := c.Param("userid")
 
