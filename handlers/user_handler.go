@@ -8,8 +8,12 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// hubungan sama service
+
+
 type UserHandler struct {
 	DatabaseInstance *storage.Database
+	UserService *service.UserService
 }
 
 func (uh *UserHandler) CreateUser(c echo.Context) error {
@@ -46,11 +50,9 @@ func (uh *UserHandler) GetUser(c echo.Context) error {
 }
 
 func (uh *UserHandler) GetAllUsers(c echo.Context) error {
-	users := &[]models.User{}
 
-	if err := uh.DatabaseInstance.DB.Find(users).Error; err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
+	users, err := uh.UserService.GetUsers(id)
+
 
 	c.JSON(http.StatusOK, users)
 	return nil
@@ -70,8 +72,21 @@ func (uh *UserHandler) DeleteUser(c echo.Context) error {
 	return nil
 }
 
-// func (uh *UserHandler) AddTeam(c echo.Context) error {
-// 	id := c.Param("userid")
+func NewUserHandler(userService *Service.UserService) *UserHandler {
+	return &UserHandler{
+		userService: userService
+	}
+}
 
-// 	return nil
-// }
+func (uh *UserHandler) GetUserHandler(c echo.Context) {
+	id := c.Param("userid")
+
+	user, err := uh.UserService.GetUser(id)
+	if err != nill {
+		something
+	}
+
+	c.JSON(http.StatusOK, echo.Map{
+		"message": "User Deletion Successful",
+	})
+}
